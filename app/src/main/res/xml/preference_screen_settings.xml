@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.EditTextPreference
+            android:key="key_search_period"
+            android:defaultValue="@string/preferences_default_search_period"
+            android:dialogTitle="@string/preferences_title_search_period"
+            android:title="@string/preferences_title_search_period"
+            android:summary="@string/preferences_summary_search_period"
+            android:inputType="number"/>
+
+    <androidx.preference.EditTextPreference
+            android:key="key_raffle_count"
+            android:defaultValue="@string/preferences_default_raffle_count"
+            android:dialogTitle="@string/preferences_title_raffle_count"
+            android:title="@string/preferences_title_raffle_count"
+            android:summary="@string/preferences_summary_raffle_count"
+            android:inputType="number"/>
+
+    <androidx.preference.SwitchPreferenceCompat
+            android:key="key_raffle_shake_to_raffle"
+            android:defaultValue="false"
+            android:title="@string/preferences_title_shake_to_raffle"/>
+
+    <androidx.preference.ListPreference
+            android:key="key_shake_sensibility"
+            android:defaultValue="@string/preferences_default_shake_sensibility"
+            android:dialogTitle="@string/preferences_title_shake_sensibility"
+            android:title="@string/preferences_title_shake_sensibility"
+            android:entries="@array/preference_array_shake_sensibility_entries"
+            android:entryValues="@array/preference_array_shake_sensibility_values"/>
+
+    <androidx.preference.PreferenceCategory
+            android:title="@string/preferences_category_other">
+        <Preference
+                android:key="key_rate"
+                android:title="@string/preferences_title_rate">
+            <!--TODO open Google Play -->
+        </Preference>
+
+        <Preference
+                android:key="key_rate"
+                android:title="@string/preferences_title_legal_information"/>
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

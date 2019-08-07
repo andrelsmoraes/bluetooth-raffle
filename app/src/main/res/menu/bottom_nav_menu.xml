@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/navigation_devices"
+            android:icon="@drawable/ic_bluetooth_24dp"
+            android:title="@string/title_devices"/>
+
+    <item
+            android:id="@+id/navigation_raffled"
+            android:icon="@drawable/ic_mood_24dp"
+            android:title="@string/title_raffled"/>
+
+    <item
+            android:id="@+id/navigation_settings"
+            android:icon="@drawable/ic_settings_20dp"
+            android:title="@string/title_settings"/>
+
+</menu>

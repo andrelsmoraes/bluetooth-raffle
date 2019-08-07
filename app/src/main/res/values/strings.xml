@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Bluetooth Raffle</string>
+    <string name="title_devices">Devices</string>
+    <string name="title_raffled">Raffled</string>
+    <string name="title_settings">Settings</string>
+    <string name="hint_search_devices">Search devices</string>
+    <string name="text_raffle">Raffle</string>
+
+    <string name="preferences_title_search_period">Search Devices Period</string>
+    <string name="preferences_summary_search_period">How long in seconds the application will search for nearby devices</string>
+    <string name="preferences_title_raffle_count">Raffled per Round</string>
+    <string name="preferences_summary_raffle_count">Quantity of raffled devices by round</string>
+    <string name="preferences_title_shake_to_raffle">Shake to Raffle?</string>
+    <string name="preferences_title_shake_sensibility">Shake Sensor Sensibility</string>
+    <string name="preferences_title_rate">Rate at Play Store</string>
+    <string name="preferences_title_legal_information">Legal Information</string>
+    <string name="preferences_category_other">Other</string>
+
+    <string name="preferences_default_search_period">300</string>
+    <string name="preferences_default_raffle_count">1</string>
+    <string name="preferences_default_shake_sensibility">6</string>
+
+    <string-array name="preference_array_shake_sensibility_entries">
+        <item>Low</item>
+        <item>Medium (Recommended)</item>
+        <item>High</item>
+    </string-array>
+    <string-array name="preference_array_shake_sensibility_values">
+        <item>10</item>
+        <item>6</item>
+        <item>2</item>
+    </string-array>
+</resources>
