@@ -1,0 +1,40 @@
+ext {
+
+    android_compile_sdk_version = 29
+    android_target_sdk_version = 29
+    android_build_tools_version = "29.0.3"
+    android_min_sdk_version = 21
+
+    androidDependencies = [
+            appcompat           : "androidx.appcompat:appcompat:1.2.0",
+            constraintLayout    : "androidx.constraintlayout:constraintlayout:2.0.1",
+            vectorDrawable      : "androidx.vectordrawable:vectordrawable:1.1.0",
+            preference          : "androidx.preference:preference:1.1.1",
+            liveDataKtx         : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
+            fragmentKtx         : "androidx.fragment:fragment-ktx:1.2.5",
+            material            : "com.google.android.material:material:1.2.1"
+    ]
+
+    kotlinDependecies = [
+            stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            json  : "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
+    ]
+
+    coroutinesDependencies = [
+            core: "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
+    ]
+
+    koin_version = "2.1.6"
+
+    koinDependencies = [
+            koinAndroid: "org.koin:koin-android:$koin_version",
+            viewModel  : "org.koin:koin-android-viewmodel:$koin_version"
+    ]
+
+    testDependencies = [
+            junit   : "junit:junit:4.12",
+            runner  : "androidx.test:runner:1.3.0",
+            espresso: "androidx.test.espresso:espresso-core:3.3.0"
+    ]
+
+}

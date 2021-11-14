@@ -1,29 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <import type="org.andrelsmoraes.bluetoothraffle.utils.UiStateEvent"/>
+
+        <variable
+            name="viewModel"
+            type="org.andrelsmoraes.bluetoothraffle.ui.DevicesViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerDevices"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            <include
+                layout="@layout/layout_devices_empty_state"
+                android:id="@+id/layoutEmptyStateDevices"
+                bind:viewModel="@{viewModel}"
+                app:visibleOrGone="@{viewModel.uiState == UiStateEvent.Empty.INSTANCE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                layout="@layout/layout_devices_searching"
+                android:id="@+id/layoutSearchingDevices"
+                android:visibility="gone"
+                bind:viewModel="@{viewModel}"
+                app:visibleOrGone="@{viewModel.uiState == UiStateEvent.Loading.INSTANCE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerDevices"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:visibleOrGone="@{viewModel.uiState == UiStateEvent.Success.INSTANCE}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fabRaffle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/text_raffle"
+            android:layout_marginBottom="16dp"
+            android:text="@string/button_raffle"
             android:textColor="#f0f0f0"
-            app:icon="@drawable/ic_card_giftcard_24dp"
+            android:visibility="invisible"
+            android:onClick="@{() -> viewModel.raffle()}"
+            app:visibleOrGone="@{viewModel.uiState == UiStateEvent.Success.INSTANCE}"
             app:backgroundTint="@color/colorPrimaryDark"
+            app:icon="@drawable/ic_card_giftcard_24dp"
             app:iconTint="#f0f0f0"
             app:layout_anchor="@id/recyclerDevices"
-            app:layout_anchorGravity="bottom|right|end" />
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_behavior=".ui.misc.ShrinkButtonOnScrollBehavior" />
 
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
