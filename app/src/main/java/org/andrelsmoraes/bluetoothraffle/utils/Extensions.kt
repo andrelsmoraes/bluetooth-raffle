@@ -1,21 +1,33 @@
 package org.andrelsmoraes.bluetoothraffle.utils
 
+import FragmentViewBindingDelegate
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.LayoutInflater
 import android.view.MenuItem
-import androidx.core.content.ContextCompat
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.ConfigurationCompat
-import androidx.preference.EditTextPreference
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import org.andrelsmoraes.bluetoothraffle.R
+import androidx.viewbinding.ViewBinding
 import org.andrelsmoraes.bluetoothraffle.utils.time.Seconds
 import org.andrelsmoraes.bluetoothraffle.utils.time.SecondsProgression
 import java.lang.Exception
-import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
+
+inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
+    crossinline bindingInflater: (LayoutInflater) -> T
+) = lazy(LazyThreadSafetyMode.NONE) {
+    bindingInflater.invoke(layoutInflater)
+}
+
+fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
+    FragmentViewBindingDelegate(this, viewBindingFactory)
 
 fun Seconds.formatToMinutesAndSeconds(): String {
     val value = if (this.toMillis() < 0) 0 else this.toMillis()

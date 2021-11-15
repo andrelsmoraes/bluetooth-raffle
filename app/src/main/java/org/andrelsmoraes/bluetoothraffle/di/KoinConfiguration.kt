@@ -15,7 +15,7 @@ import org.andrelsmoraes.bluetoothraffle.domain.repository.RaffledRepository
 import org.andrelsmoraes.bluetoothraffle.domain.repository.api.BluetoothDeviceRepository
 import org.andrelsmoraes.bluetoothraffle.ui.DevicesViewModel
 import org.andrelsmoraes.bluetoothraffle.ui.RaffledViewModel
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {

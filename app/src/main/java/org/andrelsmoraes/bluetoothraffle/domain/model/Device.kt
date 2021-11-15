@@ -1,10 +1,8 @@
 package org.andrelsmoraes.bluetoothraffle.domain.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-import kotlinx.serialization.Serializable
+import kotlinx.parcelize.Parcelize
 
-@Serializable
 @Parcelize
 open class Device(
     val name: String,

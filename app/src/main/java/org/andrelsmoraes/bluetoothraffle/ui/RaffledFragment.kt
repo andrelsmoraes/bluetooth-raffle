@@ -1,18 +1,18 @@
 package org.andrelsmoraes.bluetoothraffle.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_raffled.*
+import org.andrelsmoraes.bluetoothraffle.R
 import org.andrelsmoraes.bluetoothraffle.databinding.FragmentRaffledBinding
 import org.andrelsmoraes.bluetoothraffle.ui.misc.DeviceListAdapter
 import org.andrelsmoraes.bluetoothraffle.utils.addDividerVertical
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.andrelsmoraes.bluetoothraffle.utils.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RaffledFragment : Fragment() {
+class RaffledFragment : Fragment(R.layout.fragment_raffled) {
 
+    private val binding by viewBinding(FragmentRaffledBinding::bind)
     val viewModel: RaffledViewModel by viewModel()
 
     private val raffledListAdapter = DeviceListAdapter()
@@ -23,29 +23,21 @@ class RaffledFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel.raffledData.observe(this, { devices ->
-            raffledListAdapter.setItems(devices)
-        })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(false)
-        val binding = FragmentRaffledBinding.inflate(
-            inflater, container, false).also {
-            it.lifecycleOwner = viewLifecycleOwner
-            it.viewModel = viewModel
-        }
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(false)
 
-        recyclerRaffled.adapter = raffledListAdapter
-        recyclerRaffled.addDividerVertical()
+        binding.apply {
+            lifecycleOwner = this@RaffledFragment.viewLifecycleOwner
+            viewModel = this@RaffledFragment.viewModel
+
+            recyclerRaffled.adapter = raffledListAdapter
+            recyclerRaffled.addDividerVertical()
+        }
+
+        viewModel.raffledData.observe(viewLifecycleOwner, { devices ->
+            raffledListAdapter.setItems(devices)
+        })
     }
 
     fun onNavigationSelected() {

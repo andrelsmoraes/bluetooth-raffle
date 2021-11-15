@@ -3,7 +3,6 @@ package org.andrelsmoraes.bluetoothraffle.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,12 +10,15 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.google.android.material.transition.platform.MaterialArcMotion
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
-import kotlinx.android.synthetic.main.activity_new_raffled.*
 import org.andrelsmoraes.bluetoothraffle.R
+import org.andrelsmoraes.bluetoothraffle.databinding.ActivityNewRaffledBinding
 import org.andrelsmoraes.bluetoothraffle.domain.model.Device
 import org.andrelsmoraes.bluetoothraffle.ui.misc.DeviceListAdapter
+import org.andrelsmoraes.bluetoothraffle.utils.viewBinding
 
 class NewRaffledActivity : AppCompatActivity() {
+
+    private val binding by viewBinding(ActivityNewRaffledBinding::inflate)
 
     private val raffledDeviceListAdapter = DeviceListAdapter(R.color.colorTextDarkBackground)
 
@@ -24,12 +26,12 @@ class NewRaffledActivity : AppCompatActivity() {
         configureTransition()
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_raffled)
+        setContentView(binding.root)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        recyclerRaffled.adapter = raffledDeviceListAdapter
+        binding.recyclerRaffled.adapter = raffledDeviceListAdapter
 
         configureRaffledData()
     }

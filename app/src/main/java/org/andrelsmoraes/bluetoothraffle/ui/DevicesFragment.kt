@@ -1,16 +1,13 @@
 package org.andrelsmoraes.bluetoothraffle.ui
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_devices.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.andrelsmoraes.bluetoothraffle.R
@@ -21,17 +18,25 @@ import org.andrelsmoraes.bluetoothraffle.utils.UiStateEvent
 import org.andrelsmoraes.bluetoothraffle.utils.addDividerVertical
 import org.andrelsmoraes.bluetoothraffle.utils.disable
 import org.andrelsmoraes.bluetoothraffle.utils.enable
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.andrelsmoraes.bluetoothraffle.utils.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DevicesFragment : Fragment() {
+class DevicesFragment : Fragment(R.layout.fragment_devices) {
 
+    private val binding by viewBinding(FragmentDevicesBinding::bind)
     val viewModel: DevicesViewModel by viewModel()
 
     private var menuItemSearchDevices: MenuItem? = null
     private val deviceListAdapter = DeviceListAdapter()
 
+    private val activityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+    ) {
+        binding.fabRaffle.extend()
+        viewModel.refreshDevices()
+    }
+
     companion object {
-        private const val REQUEST_OPEN_NEW_RAFFLED = 2003
         const val TRANSITION_TO_RAFFLED_NAME = "transition_devices_to_new_raffled"
 
         fun newInstance(): DevicesFragment {
@@ -39,41 +44,34 @@ class DevicesFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel.devicesData.observe(this, { devices ->
-            deviceListAdapter.setItems(devices)
-        })
-
-        viewModel.raffledData.observe(this, { devices ->
-            openRaffledActivity(devices)
-        })
-
-        viewModel.uiState.observe(this, { state ->
-            when (state) {
-                is UiStateEvent.Loading -> menuItemSearchDevices?.disable()
-                else -> menuItemSearchDevices?.enable()
-            }
-        })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(true)
-        val binding = FragmentDevicesBinding.inflate(
-                inflater, container, false).also {
-            it.lifecycleOwner = viewLifecycleOwner
-            it.viewModel = viewModel
-        }
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
-        recyclerDevices.adapter = deviceListAdapter
-        recyclerDevices.addDividerVertical()
+        binding.apply {
+            lifecycleOwner = this@DevicesFragment.viewLifecycleOwner
+            viewModel = this@DevicesFragment.viewModel
+
+            recyclerDevices.adapter = deviceListAdapter
+            recyclerDevices.addDividerVertical()
+        }
+
+        viewLifecycleOwner.apply {
+            viewModel.devicesData.observe(this, { devices ->
+                deviceListAdapter.setItems(devices)
+            })
+
+            viewModel.raffledData.observe(this, { devices ->
+                openRaffledActivity(devices)
+            })
+
+            viewModel.uiState.observe(this, { state ->
+                when (state) {
+                    is UiStateEvent.Loading -> menuItemSearchDevices?.disable()
+                    else -> menuItemSearchDevices?.enable()
+                }
+            })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -95,27 +93,14 @@ class DevicesFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (REQUEST_OPEN_NEW_RAFFLED == requestCode) {
-            fabRaffle.extend()
-            viewModel.refreshDevices()
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private fun openRaffledActivity(devices: List<Device>) {
-        val options = ActivityOptions.makeSceneTransitionAnimation(
+        val intent = NewRaffledActivity.createIntent(this.requireContext(), devices)
+        val transition = ActivityOptionsCompat.makeSceneTransitionAnimation(
             requireActivity(),
-            fabRaffle,
+            binding.fabRaffle,
             TRANSITION_TO_RAFFLED_NAME
         )
-
-        startActivityForResult(
-            NewRaffledActivity.createIntent(this.requireContext(), devices),
-            REQUEST_OPEN_NEW_RAFFLED,
-            options.toBundle()
-        )
+        activityResultLauncher.launch(intent, transition)
     }
 
 }
