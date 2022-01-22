@@ -1,34 +1,27 @@
 package org.andrelsmoraes.bluetoothraffle.ui
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import org.andrelsmoraes.bluetoothraffle.domain.interactor.GetRaffledDevicesUseCase
-import org.andrelsmoraes.bluetoothraffle.domain.interactor.GetRemainingDevicesUseCase
-import org.andrelsmoraes.bluetoothraffle.domain.interactor.RaffleDeviceUseCase
-import org.andrelsmoraes.bluetoothraffle.domain.interactor.SearchDeviceUseCase
 import org.andrelsmoraes.bluetoothraffle.domain.model.Device
-import org.andrelsmoraes.bluetoothraffle.utils.ObservableTimer
+import org.andrelsmoraes.bluetoothraffle.ui.base.BaseViewModel
 import org.andrelsmoraes.bluetoothraffle.utils.UiStateEvent
 
-class RaffledViewModel(private val getRaffledDevicesUseCase: GetRaffledDevicesUseCase) :
-    ViewModel() {
+class RaffledViewModel(
+    private val getRaffledDevicesUseCase: GetRaffledDevicesUseCase
+) : BaseViewModel() {
 
-    val uiState: MutableLiveData<UiStateEvent> = MutableLiveData(UiStateEvent.Empty)
-    val raffledData: MutableLiveData<List<Device>> = MutableLiveData()
+    private val _raffledData = MutableStateFlow<List<Device>>(mutableListOf())
+    val raffledData: StateFlow<List<Device>> = _raffledData
 
     fun refreshDevices() {
         viewModelScope.launch {
             getRaffledDevicesUseCase.run()
                 .catch {
-                    uiState.value = UiStateEvent.Error
+                    _uiState.value = UiStateEvent.Error
 
                     //TODO error dialog or component - reuse on Device list
 
@@ -36,12 +29,12 @@ class RaffledViewModel(private val getRaffledDevicesUseCase: GetRaffledDevicesUs
                     //TODO loading?
 
                     if (raffled.isEmpty()) {
-                        uiState.value = UiStateEvent.Empty
+                        _uiState.value = UiStateEvent.Empty
                     } else if (uiState.value !is UiStateEvent.Success) {
-                        uiState.value = UiStateEvent.Success
+                        _uiState.value = UiStateEvent.Success
                     }
 
-                    raffledData.value = raffled.toList()
+                    _raffledData.value = raffled.toList()
                 }
         }
     }

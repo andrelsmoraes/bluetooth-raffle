@@ -22,4 +22,9 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="FabOverlay" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 </resources>

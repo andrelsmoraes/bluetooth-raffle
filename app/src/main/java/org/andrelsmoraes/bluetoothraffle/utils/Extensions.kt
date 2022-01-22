@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import org.andrelsmoraes.bluetoothraffle.utils.time.Seconds
 import org.andrelsmoraes.bluetoothraffle.utils.time.SecondsProgression
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

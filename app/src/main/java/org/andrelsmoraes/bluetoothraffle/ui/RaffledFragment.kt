@@ -3,6 +3,11 @@ package org.andrelsmoraes.bluetoothraffle.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import org.andrelsmoraes.bluetoothraffle.R
 import org.andrelsmoraes.bluetoothraffle.databinding.FragmentRaffledBinding
 import org.andrelsmoraes.bluetoothraffle.ui.misc.DeviceListAdapter
@@ -35,9 +40,15 @@ class RaffledFragment : Fragment(R.layout.fragment_raffled) {
             recyclerRaffled.addDividerVertical()
         }
 
-        viewModel.raffledData.observe(viewLifecycleOwner, { devices ->
-            raffledListAdapter.setItems(devices)
-        })
+        lifecycleScope.launch {
+            viewModel.raffledData
+                .flowWithLifecycle(lifecycle)
+                .filter { it.isNotEmpty() }
+                .distinctUntilChanged()
+                .collect { devices ->
+                    raffledListAdapter.setItems(devices)
+                }
+        }
     }
 
     fun onNavigationSelected() {
