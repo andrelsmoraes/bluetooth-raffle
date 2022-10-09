@@ -1,0 +1,43 @@
+<resources>
+    <string name="title_devices">Listados</string>
+    <string name="title_raffled">Sorteados</string>
+    <string name="title_settings">Configurações</string>
+    <string name="button_raffle">Sortear</string>
+
+    <string name="preferences_title_search_period">Período para procurar</string>
+    <string name="preferences_summary_search_period">Por quanto tempo, em segundos, o aplicativo deve procurar por dispositivos próximos</string>
+    <string name="preferences_title_raffle_count">Sorteados por rodada</string>
+    <string name="preferences_summary_raffle_count">Quantidade de dispositivos sorteados a cada rodada</string>
+    <string name="preferences_title_shake_to_raffle">Chacoalhar para sortear?</string>
+    <string name="preferences_category_settings">Configurações do App</string>
+    <string name="preferences_title_version">Versão</string>
+    <string name="preferences_category_legal_information">Informações Legais</string>
+    <string name="preference_text_legal_information">As informações dos dispositivos listados são usadas somente localmente; elas não são armazenadas ou compartilhadas. O aplicativo não emparelha ou envia quaisquer dados para os dispositivos encontrados, ou fontes externas.\n\nO nome e logotipo Bluetooth® são marcas registradas de  Bluetooth SIG, Inc.</string>
+    <string name="preferences_text_buy_pro">Gostou do aplicativo e gostaria de apoiar o autor? Clique aqui e compre o aplicativo na Google Play  (não há diferenças de funcionalidades entre as versões)</string>
+
+    <string name="title_searching_devices">Procurando dispositivos</string>
+    <string name="text_searching_devices">Tempo restante: %s</string>
+    <string name="title_devices_empty_screen">Iniciar</string>
+    <string name="text_devices_empty_screen">Procure por dispositivos clicando no botão abaixo, ou no ícone Bluetooth no topo direito da tela. Se o Bluetooth estiver desativado, o aplicativo irá solicitar as permissões necessárias para ativá-lo.\n\nO aplicativo irá procurar apenas por dispositivos móveis (celulares, smartphones), então peça aos participantes para ativar o Bluetooth. O alcance do Bluetooth varia de acordo com cada dispositivo, mas em geral é de até 10 metros.</string>
+    <string name="text_permission_warning">A permissão de localização é um requisito do sistema (até o Android 11) para procurar dispositivos Bluetooth. O aplicativo não utiliza, armazena, ou compartilha quaisquer dados vinculados a essa permissão.</string>
+    <string name="text_permission_warning_android_12">A permissão para acessar dispositivos próximos é um requisito do sitema (a partir do Android 12) para ativar o Bluetooth. O aplicativo não utiliza, armazena, ou compartilha quaisquer dados vinculados a essa permissão.</string>
+    <string name="button_search_devices">Procurar por dispositivos</string>
+    <string name="button_stop_searching">Parar a procura</string>
+    <string name="text_bluetooth_off">O Bluetooth está desativado</string>
+    <string name="title_bluetooth_permission_denied">Permissão para acesso Bluetooth</string>
+    <string name="text_bluetooth_permission_denied">As permissões para procurar por dispositivos Bluetooth estão desativadas. Ative-as nas configurações do aplicativo para poder iniciar o sorteio.</string>
+    <string name="button_open_app_settings">Acessar as configurações</string>
+
+    <string name="toast_searching_devices_start">Procura por dispositivos iniciada</string>
+    <string name="toast_error">Um erro ocorreu, por favor tente novamente</string>
+
+    <string name="title_raffled_empty_screen">Nenhum disposito sorteado ainda</string>
+
+    <string name="text_raffled_at">Sorteado em %s</string>
+
+    <plurals name="new_raffled_devices">
+        <item quantity="one">Um dispositivo sorteado!</item>
+        <item quantity="other">%d dispositivos sorteados!</item>
+    </plurals>
+
+</resources>

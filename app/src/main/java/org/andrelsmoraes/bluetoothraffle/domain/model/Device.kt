@@ -2,13 +2,15 @@ package org.andrelsmoraes.bluetoothraffle.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 @Parcelize
-open class Device(
+@Serializable
+class Device(
     val name: String,
     val address: String,
     var raffledTime: Long? = null
-) : Parcelable, Comparable<Device> {
+) : Parcelable {
 
     fun isRaffled() = raffledTime != null
 
@@ -24,7 +26,5 @@ open class Device(
     }
 
     override fun hashCode() = address.hashCode()
-
-    override fun compareTo(other: Device) = name.compareTo(other.name)
 
 }

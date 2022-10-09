@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.PreferenceCategory android:title="@string/preferences_category_settings">
+        <androidx.preference.EditTextPreference
+            android:defaultValue="@integer/default_devices_search_period"
+            android:dialogTitle="@string/preferences_title_search_period"
+            android:inputType="number"
+            android:key="@string/key_devices_search_period"
+            android:persistent="true"
+            android:summary="@string/preferences_summary_search_period"
+            android:title="@string/preferences_title_search_period" />
+
+        <androidx.preference.EditTextPreference
+            android:defaultValue="@integer/default_raffle_quantity_per_round"
+            android:dialogTitle="@string/preferences_title_raffle_count"
+            android:inputType="number"
+            android:key="@string/key_raffle_quantity_per_round"
+            android:summary="@string/preferences_summary_raffle_count"
+            android:title="@string/preferences_title_raffle_count" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="@bool/default_shake_to_raffle_enabled"
+            android:key="@string/key_shake_to_raffle_enabled"
+            android:title="@string/preferences_title_shake_to_raffle" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory android:title="@string/preferences_category_legal_information">
+        <Preference
+            android:key="@string/key_legal_information"
+            android:summary="@string/preference_text_legal_information" />
+    </androidx.preference.PreferenceCategory>
+
+    <androidx.preference.PreferenceCategory>
+        <Preference
+            android:key="@string/key_version_message"
+            android:summary="@string/preferences_text_buy_pro" />
+
+        <Preference
+            android:enabled="false"
+            android:key="@string/key_version_name"
+            android:shouldDisableView="false" />
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

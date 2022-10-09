@@ -28,10 +28,4 @@ class PreferencesRepositoryImpl(private val context: Context) : PreferencesRepos
             context.resources.getBoolean(R.bool.default_shake_to_raffle_enabled)
         )
 
-    override fun getShakeSensorSensibility() =
-        PreferenceManager.getDefaultSharedPreferences(context).toInt(
-            context.getString(R.string.key_shake_sensor_sensibility),
-            context.resources.getInteger(R.integer.default_shake_sensor_sensibility)
-        )
-
 }

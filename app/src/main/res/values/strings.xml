@@ -1,26 +1,35 @@
 <resources>
-    <string name="app_name">Bluetooth Raffle</string>
-    <string name="title_devices">Devices</string>
+    <string name="title_devices">Listed</string>
     <string name="title_raffled">Raffled</string>
     <string name="title_settings">Settings</string>
     <string name="button_raffle">Raffle</string>
 
-    <string name="preferences_title_search_period">Search Devices Period</string>
+    <string name="preferences_title_search_period">Search devices period</string>
     <string name="preferences_summary_search_period">How long in seconds the application will search for nearby devices</string>
-    <string name="preferences_title_raffle_count">Raffled per Round</string>
+    <string name="preferences_title_raffle_count">Raffled per round</string>
     <string name="preferences_summary_raffle_count">Quantity of raffled devices by round</string>
-    <string name="preferences_title_shake_to_raffle">Shake to Raffle?</string>
-    <string name="preferences_title_shake_sensibility">Shake Sensor Sensibility</string>
-    <string name="preferences_title_rate">Rate at Play Store</string>
-    <string name="preferences_title_legal_information">Legal Information</string>
-    <string name="preferences_category_other">Other</string>
+    <string name="preferences_title_shake_to_raffle">Shake to raffle?</string>
+    <string name="preferences_category_settings">App Settings</string>
+    <string name="preferences_title_version">Version</string>
+    <string name="preferences_category_legal_information">Legal Information</string>
+    <string name="preference_text_legal_information">The information from listed devices is used only locally; it is not stored or shared. The app does not pair or send data to the devices listed or external sources.\n\nThe Bluetooth® word mark and logos are registered trademarks owned by Bluetooth SIG, Inc.</string>
+    <string name="preferences_text_buy_pro">Are you enjoying the app and would like to support the author? Click here to buy the app on Google Play (there are no differences between versions)</string>
 
     <string name="title_searching_devices">Searching for devices</string>
     <string name="text_searching_devices">Remaining time: %s</string>
     <string name="title_devices_empty_screen">Get started</string>
-    <string name="text_devices_empty_screen">Ask the participants to turn on Bluetooth in detection mode, then start searching for devices by clicking on the button below, or on the Bluetooth icon on the top right corner.\n\nBluetooth range varies by device model, but in general, it is up to 10 meters.</string>
+    <string name="text_devices_empty_screen">Start searching for devices by clicking on the button below or the Bluetooth icon in the top right corner. If Bluetooth is turned off, the app will ask for the necessary permissions to enable it.\n\nThe app will search for phone devices only, so ask the participants to check and turn on Bluetooth. Bluetooth range varies by device model, but generally, it is up to 10 meters.</string>
+    <string name="text_permission_warning">The permission to access location is a system requirement for searching Bluetooth devices up to Android 11. The app does not use, store, or share any data related to this permission.</string>
+    <string name="text_permission_warning_android_12">The permission to access nearby devices is a system requirement for turning Bluetooth on since Android 12. The app does not use, store, or share any data related to this permission.</string>
     <string name="button_search_devices">Search for devices</string>
     <string name="button_stop_searching">Stop searching</string>
+    <string name="text_bluetooth_off">Bluetooth is turned off</string>
+    <string name="title_bluetooth_permission_denied">Bluetooth scan permission</string>
+    <string name="text_bluetooth_permission_denied">Bluetooth permissions for scanning devices are disabled. Please enable them in the app settings to start raffling.</string>
+    <string name="button_open_app_settings">Go to app settings</string>
+
+    <string name="toast_searching_devices_start">Search for devices started</string>
+    <string name="toast_error">An error occurred, please try again</string>
 
     <string name="title_raffled_empty_screen">No raffled devices yet</string>
 
@@ -31,14 +40,4 @@
         <item quantity="other">%d devices raffled!</item>
     </plurals>
 
-    <string-array name="preference_array_shake_sensibility_entries">
-        <item>Low</item>
-        <item>Medium (Recommended)</item>
-        <item>High</item>
-    </string-array>
-    <string-array name="preference_array_shake_sensibility_values">
-        <item>10</item>
-        <item>6</item>
-        <item>2</item>
-    </string-array>
 </resources>

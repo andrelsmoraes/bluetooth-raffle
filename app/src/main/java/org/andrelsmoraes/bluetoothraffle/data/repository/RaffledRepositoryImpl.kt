@@ -4,22 +4,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.andrelsmoraes.bluetoothraffle.domain.model.Device
 import org.andrelsmoraes.bluetoothraffle.domain.repository.RaffledRepository
-import java.util.*
+import org.andrelsmoraes.bluetoothraffle.domain.storage.RaffledDevicesStorage
 
-class RaffledRepositoryImpl : RaffledRepository {
+open class RaffledRepositoryImpl(
+    private val raffledDevicesStorageImpl: RaffledDevicesStorage
+) : RaffledRepository {
 
-    private val raffledDevices = mutableSetOf<Device>()
-
-    override fun clearDevices(): Flow<Unit> = flow {
-        emit(raffledDevices.clear())
+    override fun addDevice(vararg devices: Device): Flow<Unit> = flow {
+        devices.forEach(raffledDevicesStorageImpl::addDevice)
+        emit(Unit)
     }
 
     override fun listDevices(): Flow<Set<Device>> = flow {
-        emit(Collections.unmodifiableSet(raffledDevices))
+        emit(raffledDevicesStorageImpl.listDevices())
     }
 
-    override fun addDevice(vararg devices: Device): Flow<Boolean> = flow {
-        emit(raffledDevices.addAll(devices))
-    }
+    override fun observeSize(): Flow<Int> = raffledDevicesStorageImpl.observeSize()
 
 }

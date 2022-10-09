@@ -2,6 +2,7 @@ package org.andrelsmoraes.bluetoothraffle.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,8 +12,10 @@ import kotlinx.coroutines.launch
 import org.andrelsmoraes.bluetoothraffle.R
 import org.andrelsmoraes.bluetoothraffle.databinding.FragmentRaffledBinding
 import org.andrelsmoraes.bluetoothraffle.ui.misc.DeviceListAdapter
+import org.andrelsmoraes.bluetoothraffle.utils.UiStateEvent
 import org.andrelsmoraes.bluetoothraffle.utils.addDividerVertical
 import org.andrelsmoraes.bluetoothraffle.utils.viewBinding
+import org.andrelsmoraes.bluetoothraffle.utils.visibleOrGone
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RaffledFragment : Fragment(R.layout.fragment_raffled) {
@@ -30,16 +33,18 @@ class RaffledFragment : Fragment(R.layout.fragment_raffled) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(false)
+        initViews()
+        observeData()
+    }
 
+    private fun initViews() {
         binding.apply {
-            lifecycleOwner = this@RaffledFragment.viewLifecycleOwner
-            viewModel = this@RaffledFragment.viewModel
-
             recyclerRaffled.adapter = raffledListAdapter
             recyclerRaffled.addDividerVertical()
         }
+    }
 
+    private fun observeData() {
         lifecycleScope.launch {
             viewModel.raffledData
                 .flowWithLifecycle(lifecycle)
@@ -48,6 +53,25 @@ class RaffledFragment : Fragment(R.layout.fragment_raffled) {
                 .collect { devices ->
                     raffledListAdapter.setItems(devices)
                 }
+        }
+        lifecycleScope.launch {
+            viewModel.uiState
+                .flowWithLifecycle(lifecycle)
+                .collect(::configureUiState)
+        }
+    }
+
+    private fun configureUiState(state: UiStateEvent) {
+        if (state == UiStateEvent.Error) {
+            Toast.makeText(
+                requireContext(),
+                R.string.toast_error,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.apply {
+            layoutEmptyStateRaffled.root.visibleOrGone(state == UiStateEvent.Empty)
+            recyclerRaffled.visibleOrGone(state == UiStateEvent.Success)
         }
     }
 

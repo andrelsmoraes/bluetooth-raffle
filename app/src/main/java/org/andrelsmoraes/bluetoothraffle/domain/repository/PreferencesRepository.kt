@@ -10,6 +10,4 @@ interface PreferencesRepository {
 
     fun isShakeToRaffleEnabled(): Boolean
 
-    fun getShakeSensorSensibility(): Int
-
 }

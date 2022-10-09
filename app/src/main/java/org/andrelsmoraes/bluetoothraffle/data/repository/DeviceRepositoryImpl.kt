@@ -4,22 +4,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.andrelsmoraes.bluetoothraffle.domain.model.Device
 import org.andrelsmoraes.bluetoothraffle.domain.repository.DeviceRepository
-import java.util.*
+import org.andrelsmoraes.bluetoothraffle.domain.storage.AllDevicesStorage
 
-class DeviceRepositoryImpl : DeviceRepository {
-
-    private val allDevices = mutableSetOf<Device>()
-
-    override fun clearDevices(): Flow<Unit> = flow {
-        emit(allDevices.clear())
-    }
+open class DeviceRepositoryImpl(
+    private val allDevicesStorageImpl: AllDevicesStorage
+) : DeviceRepository {
 
     override fun listDevices(): Flow<Set<Device>> = flow {
-        emit(Collections.unmodifiableSet(allDevices))
+        emit(allDevicesStorageImpl.listDevices())
     }
 
-    override fun addDevice(vararg devices: Device): Flow<Boolean> = flow {
-        emit(allDevices.addAll(devices))
-    }
+    override fun observeSize(): Flow<Int> = allDevicesStorageImpl.observeSize()
 
 }

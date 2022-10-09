@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="key_devices_search_period">keyDevicesSearchPeriod</string>
-    <string name="key_raffle_quantity_per_round">keyRaffleQuantityPerRound</string>
-    <string name="key_shake_sensor_sensibility">keyShakeSensibility</string>
-    <string name="key_shake_to_raffle_enabled">keyShakeToRaffleEnabled</string>
+    <string name="key_devices_search_period" translatable="false">keyDevicesSearchPeriod</string>
+    <string name="key_raffle_quantity_per_round" translatable="false">keyRaffleQuantityPerRound</string>
+    <string name="key_shake_to_raffle_enabled" translatable="false">keyShakeToRaffleEnabled</string>
+    <string name="key_version_name" translatable="false">keyVersionName</string>
+    <string name="key_version_message" translatable="false">keyVersionMessage</string>
+    <string name="key_legal_information" translatable="false">keyLegalInformation</string>
 
     <integer name="default_devices_search_period">60</integer>
     <integer name="default_raffle_quantity_per_round">1</integer>
-    <integer name="default_shake_sensor_sensibility">6</integer>
     <bool name="default_shake_to_raffle_enabled">false</bool>
 </resources>

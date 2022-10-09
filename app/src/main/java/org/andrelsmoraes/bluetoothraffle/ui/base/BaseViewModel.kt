@@ -7,7 +7,7 @@ import org.andrelsmoraes.bluetoothraffle.utils.UiStateEvent
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val _uiState= MutableStateFlow<UiStateEvent>(UiStateEvent.Empty)
+    protected val _uiState = MutableStateFlow<UiStateEvent>(UiStateEvent.Empty)
     val uiState: StateFlow<UiStateEvent> = _uiState
 
 }

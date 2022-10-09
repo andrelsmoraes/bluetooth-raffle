@@ -5,24 +5,39 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
 
 android {
-    compileSdkVersion android_compile_sdk_version
-    buildToolsVersion android_build_tools_version
     defaultConfig {
-        minSdkVersion android_min_sdk_version
-        targetSdkVersion android_target_sdk_version
-        applicationId "org.andrelsmoraes.bluetoothraffle"
-        versionCode 1
-        versionName "3.0"
+        minSdkVersion androidMinSdk
+        targetSdkVersion androidTargetSdk
+        compileSdkVersion androidComplileSdk
+        applicationId appApplicationId
+        versionCode appVersionCode
+        versionName appVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            debuggable true
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "region"
+    productFlavors {
+        lite {
+            applicationIdSuffix ".free"
+            dimension "region"
+            resValue "string", "preferences_version_name", "Lite $appVersionName"
+        }
+        pro {
+            dimension "region"
+            manifestPlaceholders.appName = "Bluetooth Raffle"
+            resValue "string", "preferences_version_name", "$appVersionName"
+        }
+    }
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
     compileOptions {
@@ -32,6 +47,7 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
+    namespace 'org.andrelsmoraes.bluetoothraffle'
 }
 
 dependencies {

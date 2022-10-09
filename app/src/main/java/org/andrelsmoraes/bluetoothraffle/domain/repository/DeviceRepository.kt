@@ -5,10 +5,8 @@ import org.andrelsmoraes.bluetoothraffle.domain.model.Device
 
 interface DeviceRepository {
 
-    fun clearDevices(): Flow<Unit>
-
     fun listDevices(): Flow<Set<Device>>
 
-    fun addDevice(vararg devices: Device): Flow<Boolean>
+    fun observeSize(): Flow<Int>
 
 }
