@@ -4,6 +4,7 @@ import org.andrelsmoraes.bluetoothraffle.data.repository.BluetoothDeviceReposito
 import org.andrelsmoraes.bluetoothraffle.data.repository.DeviceRepositoryImpl
 import org.andrelsmoraes.bluetoothraffle.data.repository.PreferencesRepositoryImpl
 import org.andrelsmoraes.bluetoothraffle.data.repository.RaffledRepositoryImpl
+import org.andrelsmoraes.bluetoothraffle.data.repository.mock.MockedBluetoothDeviceRepositoryImpl
 import org.andrelsmoraes.bluetoothraffle.data.storage.AllDevicesStorageImpl
 import org.andrelsmoraes.bluetoothraffle.data.storage.RaffledDevicesStorageImpl
 import org.andrelsmoraes.bluetoothraffle.domain.repository.BluetoothDeviceRepository
@@ -34,8 +35,8 @@ val appModule = module {
     single<DeviceRepository> { DeviceRepositoryImpl(get()) }
     single<RaffledRepository> { RaffledRepositoryImpl(get()) }
     single<PreferencesRepository> { PreferencesRepositoryImpl(get()) }
-//    single<BluetoothDeviceRepository> { MockedBluetoothDeviceRepositoryImpl(get(), get()) }
-    single<BluetoothDeviceRepository> { BluetoothDeviceRepositoryImpl(get(), get()) }
+    single<BluetoothDeviceRepository> { MockedBluetoothDeviceRepositoryImpl(get(), get()) }
+//    single<BluetoothDeviceRepository> { BluetoothDeviceRepositoryImpl(get(), get()) }
 
     factory { GetDeviceSearchPeriodUseCase(get()) }
     factory { GetRaffledDevicesUseCase(get()) }

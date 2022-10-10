@@ -5,11 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import org.andrelsmoraes.bluetoothraffle.BuildConfig
 import org.andrelsmoraes.bluetoothraffle.R
 import org.andrelsmoraes.bluetoothraffle.utils.getStringVersion
+import org.andrelsmoraes.bluetoothraffle.utils.forceNumericInputType
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -24,6 +25,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_screen_settings, rootKey)
+
+        findPreference<EditTextPreference>(getString(R.string.key_devices_search_period))
+            ?.forceNumericInputType()
+        findPreference<EditTextPreference>(getString(R.string.key_raffle_quantity_per_round))
+            ?.forceNumericInputType()
 
         val versionNamePreference: Preference? =
             findPreference(getString(R.string.key_version_name))

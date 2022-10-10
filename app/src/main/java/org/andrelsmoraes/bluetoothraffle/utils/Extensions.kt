@@ -8,12 +8,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
+import android.text.InputFilter
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
+import androidx.preference.EditTextPreference
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -69,6 +72,14 @@ fun View.visibleOrGone(visible: Boolean) {
 
     } else {
         this.visibility = visibility
+    }
+}
+
+fun EditTextPreference.forceNumericInputType(maxLength: Int = 3) {
+    setOnBindEditTextListener { editText ->
+        editText.inputType = InputType.TYPE_CLASS_NUMBER
+        editText.setSelection(editText.text.length)
+        editText.filters = arrayOf(InputFilter.LengthFilter(maxLength))
     }
 }
 
